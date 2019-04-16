@@ -122,7 +122,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      login: 'user/login'
+      login: 'user/login',
+      generateRoutes: 'permission/generateRoutes'
     }),
     showPwd() {
       if (this.passwordType === 'password') {
@@ -138,17 +139,14 @@ export default {
       this.$refs.loginForm.validate(async valid => {
         if (valid) {
           console.log(this.loginForm);
-          // this.loading = true
+          this.loading = true
           let res = await this.login(this.loginForm);
-          // console.log('login res...', res);
-          // this.$store.dispatch('user/login', this.loginForm)
-          //   .then(() => {
-          //     this.$router.push({ path: this.redirect || '/' })
-          //     this.loading = false
-          //   })
-          //   .catch(() => {
-          //     this.loading = false
-          //   })
+          console.log('login res...', res);
+          if (res.code == 1){
+            await this.generateRoutes([]);
+            this.$router.push({ path: this.redirect || '/' })
+          }
+          this.loading = false
         } else {
           console.log('error submit!!')
           return false

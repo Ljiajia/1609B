@@ -14,7 +14,7 @@ const examsRouter = {
   children: [
     {
       path: 'add',
-      component: () => import('@/views/charts/keyboard'),
+      component: () => import('@/views/questions/add'),
       name: 'KeyboardChart',
       meta: { title: 'addQuestions', noCache: true }
     },
