@@ -85,8 +85,8 @@ export default {
     }
     return {
       loginForm: {
-        username: 'chenmanjie',
-        password: 'Chenmanjie123!'
+        username: 'wuhongyang',
+        password: 'Wuhongyang123!'
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur'}, {trigger:'blur', validator: validateUsername }],
@@ -122,8 +122,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      login: 'user/login',
-      generateRoutes: 'permission/generateRoutes'
+      login: 'user/login'
     }),
     showPwd() {
       if (this.passwordType === 'password') {
@@ -143,7 +142,6 @@ export default {
           let res = await this.login(this.loginForm);
           console.log('login res...', res);
           if (res.code == 1){
-            await this.generateRoutes([]);
             this.$router.push({ path: this.redirect || '/' })
           }
           this.loading = false
