@@ -16,19 +16,19 @@ const examsRouter = {
       path: 'add',
       component: () => import('@/views/questions/add'),
       name: 'KeyboardChart',
-      meta: { title: 'addQuestions', noCache: true }
+      meta: { title: 'addQuestions', noCache: true, view_id: 'main-addQuestions' }
     },
     {
       path: 'type',
       component: () => import('@/views/charts/line'),
       name: 'LineChart',
-      meta: { title: 'quetionTypes', noCache: true }
+      meta: { title: 'quetionTypes', noCache: true, view_id: 'main-menu' }
     },
     {
       path: 'view',
       component: () => import('@/views/charts/mixChart'),
       name: 'MixChart',
-      meta: { title: 'viewQuestions', noCache: true }
+      meta: { title: 'viewQuestions', noCache: true, view_id: '12313' }
     }
   ]
 }

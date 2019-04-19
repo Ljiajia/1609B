@@ -41,7 +41,6 @@ import examRouter from './modules/exam'
  * all roles can be accessed
  */
 export const constantRoutes = [
-  examRouter,
   {
     path: '/redirect',
     component: Layout,
@@ -118,6 +117,7 @@ export const constantRoutes = [
  * the routes that need to be dynamically loaded based on user roles
  */
 export const asyncRoutes = [
+  examRouter,
   {
     path: '/permission',
     component: Layout,
