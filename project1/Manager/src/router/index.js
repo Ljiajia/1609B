@@ -13,6 +13,7 @@ import tableRouter from './modules/table'
 import nestedRouter from './modules/nested'
 // 引入考试路由
 import examRouter from './modules/exam'
+import userRouter from './modules/user'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -118,6 +119,7 @@ export const constantRoutes = [
  */
 export const asyncRoutes = [
   examRouter,
+  userRouter,
   {
     path: '/permission',
     component: Layout,

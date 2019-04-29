@@ -6,7 +6,9 @@ import { getToken } from '@/utils/auth'
 const service = axios.create({
   // baseURL: 'http://169.254.12.55:7001', // api 的 base_url
 
-  baseURL: '/api',
+  // baseURL: '/api',
+  // baseURL: /jasonandjay\.com/.test(window.location.host)?'https://exam.jasonandjay.com/': 'http://169.254.12.55:7001',
+  baseURL: 'https://exam.jasonandjay.com/',
   // withCredentials: true, // 跨域请求时发送 cookies
   timeout: 5000 // request timeout
 })

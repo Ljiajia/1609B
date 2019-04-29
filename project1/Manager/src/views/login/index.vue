@@ -85,8 +85,8 @@ export default {
     }
     return {
       loginForm: {
-        username: 'wuhongyang',
-        password: 'Wuhongyang123!'
+        username: 'chenmanjie',
+        password: 'Chenmanjie123!'
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur'}, {trigger:'blur', validator: validateUsername }],
@@ -135,6 +135,10 @@ export default {
       })
     },
     handleLogin() {
+      console.log('登陆按钮点击...');
+      // 加入事件统计
+      _hmt.push(['_trackEvent', '考试管理平台', 'tap', '登陆按钮点击']);
+
       this.$refs.loginForm.validate(async valid => {
         if (valid) {
           console.log(this.loginForm);
