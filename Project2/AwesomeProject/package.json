@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "android": "react-native run-android",
+    "avd": "emulator.exe -avd RN",
     "test": "jest"
   },
   "dependencies": {

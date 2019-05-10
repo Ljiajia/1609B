@@ -37,6 +37,12 @@ export function numberFormatter(num, digits) {
   return num.toString()
 }
 
-export function toThousandFilter(num) {
-  return (+num || 0).toString().replace(/^-?\d+/g, m => m.replace(/(?=(?!\b)(\d{3})+$)/g, ','))
+// 千分符
+export function toThousandFilter(num, val=3) {
+  // var reg = new RegExp(/(?=(?!\b)(\d{3})+$)/g)
+  if (val == 3){
+    return (+num || 0).toString().replace(/^-?\d+/g, m => m.replace(/(?=(?!\b)(\d{3})+$)/g, ','))
+  }else if(val == 4){
+    return (+num || 0).toString().replace(/^-?\d+/g, m => m.replace(/(?=(?!\b)(\d{4})+$)/g, ','))
+  }
 }
