@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'dva';
 import styles from './IndexPage.scss';
-import {uploadFile} from '../services/index';
+import {uploadFile, takeCertificatePicture} from '../services/index';
 
 
 class IndexPage extends React.Component{
@@ -17,6 +17,12 @@ class IndexPage extends React.Component{
     uploadFile(type, cb);
   }
 
+  takeCertificatePicture(){
+    takeCertificatePicture(res=>{
+      console.log('rs...', res);
+    })
+  }
+
   render(){
     // return null;
     return <div>
@@ -26,6 +32,8 @@ class IndexPage extends React.Component{
       <p className="p4">第四个P标签</p>
       <button onClick={()=>this.uploadFile(0)}>拍照</button>
       <button onClick={()=>this.uploadFile(1)}>相册选择</button>
+
+      <button onClick={()=>this.takeCertificatePicture()}>拍摄身份证</button>
     </div>
   }
 }
