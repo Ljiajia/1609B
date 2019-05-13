@@ -1,5 +1,8 @@
 import dva from 'dva';
 import './index.css';
+import VConsole from 'vconsole';
+
+new VConsole();
 
 // 1. Initialize
 const app = dva();

@@ -1,0 +1,25 @@
+
+/* .p1{
+  color: antiquewhite;
+} */
+
+/* 局部css */
+:local(.p1){
+  color: aquamarine;
+  font-size: 30px;
+}
+
+/* 全局css */
+:global(.p1){
+  color: lightcoral;
+}
+
+// scss中全局css的写法
+:global{
+  .p3{
+    font-size: 30px;
+  }
+  .p4{
+    color: bisque;
+  }
+}
