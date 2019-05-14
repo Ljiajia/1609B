@@ -1,6 +1,15 @@
 import JSBridge from '../utils/api-2.0';
 
 
+
+// 唤起登陆
+export function doLogin(cb){
+  JSBridge.invoke('app', 'login', {
+    loginCallBackName: cb
+  })
+};
+
+
 // 图片上传
 export function uploadFile(type, cb){
   JSBridge.invoke('device', 'chooseImage', {

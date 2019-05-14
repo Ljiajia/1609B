@@ -1,13 +1,21 @@
 import React from 'react';
 import { connect } from 'dva';
 import styles from './IndexPage.scss';
-import {uploadFile, takeCertificatePicture} from '../services/index';
-
+import {uploadFile, takeCertificatePicture, doLogin} from '../services/index';
+import {isLogin} from '@/utils/index';
 
 class IndexPage extends React.Component{
+  constructor(){
+    super();
+    this.state = {
+      isLogin: isLogin()
+    }
+    this.uploadFile = this.uploadFile.bind(this);
+  }
+
   componentDidMount(){
     // this.props.fetchUser();
-    this.uploadFile = this.uploadFile.bind(this);
+
   }
 
   uploadFile(type, cb){
@@ -23,6 +31,13 @@ class IndexPage extends React.Component{
     })
   }
 
+  doLogin(){
+    doLogin(res=>{
+      console.log('login res...', res);
+      window.location.reload();
+    })
+  }
+
   render(){
     // return null;
     return <div>
@@ -34,6 +49,8 @@ class IndexPage extends React.Component{
       <button onClick={()=>this.uploadFile(1)}>相册选择</button>
 
       <button onClick={()=>this.takeCertificatePicture()}>拍摄身份证</button>
+
+      <button onClick={()=>this.doLogin()}>{this.state.isLogin?'已登陆':'未登陆'}</button>
     </div>
   }
 }

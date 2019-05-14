@@ -4,12 +4,15 @@ export default {
 	  schema: 'chelunJSBridge',
 	  invoke: function (namespace, api, param) {
 	    namespace = String(namespace);
-	    api = String(api);
+      api = String(api);
+      // 拼接请求地址地址
 	    var url = this.schema + '://' + namespace + '/' + api;
-	    if (param && typeof param === 'object') {
+      // 拼接查询参数
+      if (param && typeof param === 'object') {
 	      url += this._buildQuery(param);
 	    }
 
+      // 发送请求
 	    this._sendRequest(url);
 	  },
 	  _buildQuery: function (param) {
@@ -18,6 +21,7 @@ export default {
 	      uriSeg = '';
 	    for (var attr in param) {
 	      if (param.hasOwnProperty(attr)) {
+          // 如果查询参数是函数
 	        if (param[attr] && typeof param[attr] === 'function') {
 	          var callbackNo = this._createCallbackNo(param[attr]);
 	          if (attr === 'callback') {
