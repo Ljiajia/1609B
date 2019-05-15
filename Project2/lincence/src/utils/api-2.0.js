@@ -35,7 +35,7 @@ export default {
 	          seg.push(encodeURIComponent(attr) + '=' + encodeURIComponent(paramValue));
 	        }
 	      }
-	    }
+      }
 
 	    seg.length && (uriSeg += '?' + seg.join('&'));
 	    return uriSeg += frag;

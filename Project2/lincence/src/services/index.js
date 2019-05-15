@@ -26,3 +26,24 @@ export function takeCertificatePicture(cb){
     takeCertificateCallBackName: cb
   })
 };
+
+
+// 调起客户端支付
+export function pay(channels, cb){
+  JSBridge.invoke('app', 'pay', {
+    price: '398.00',
+    orderNum: '6534241179423946753',
+    serial_number: '6534241179423946753',
+    channels,
+    callbackUrl: 'http://www.baidu.com',
+    payCallback: cb
+  })
+}
+
+
+// 调起微信分享
+export function share(to){
+  JSBridge.invoke('ui', 'shareMessage', {
+    to
+  })
+}
