@@ -7,12 +7,16 @@ import { inject, observer } from 'mobx-react';
 @observer
 class App extends React.Component{
   render(){
+    console.log('this.props...', this.props);
     return (
       <div className="App">
         <header className="App-header">
           <p>
             Edit <code>src/App.js</code> and save to reload.
           </p>
+          <button onClick={()=>this.props.count.autoAdd()}>+</button>
+          <p>{this.props.count.count}</p>
+          <button>-</button>
           <a
             className="App-link"
             href="https://reactjs.org"

@@ -12,12 +12,16 @@ export default class Count{
     //     type=='+'? this.count++: this.count--;
     // }
 
-    @action autoAdd() {
+    delay(){
         return new Promise((resolve, reject)=>{
             setTimeout(()=>{
-                this.count++;
-                resolve(this.count);
-            }, 1000);
+                resolve();
+            }, 5000);
         })
+    }
+
+    @action async autoAdd() {
+        await this.delay();
+        this.count += 2;
     }
 }   
