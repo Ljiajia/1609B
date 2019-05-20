@@ -19,7 +19,7 @@ export default class Count{
             }, 5000);
         })
     }
-
+    
     @action async autoAdd() {
         await this.delay();
         this.count += 2;

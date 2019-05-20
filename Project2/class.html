@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>面向对象</title>
+</head>
+<body>
+    <script>
+        // es5的继承
+        function A(day, date){
+            this.day = day || '2019-5-20';
+            this.date = date || 'Monday';
+        }
+        A.prototype.month = 'May';
+        A.prototype.year = '2019';
+
+        // 第一种，原型链继承
+        // function B(){
+
+        // }
+        // B.prototype = new A();
+        // var b = new B();
+
+        // 第二种，构造函数继承
+        // function B(){
+        //     A.call(this, ...arguments);
+        // }
+
+        // 第三种，组合继承
+        function B(){
+            A.call(this, ...arguments);
+        }
+        B.prototype = new A();
+
+        var b = new B('2019-5-21', 'Tuesday');
+        for (let key in b){
+            console.log('key...', key, 'val...', b[key]);
+        }
+
+        /**
+        *   new的过程
+        *   1.创建一个空对象 let obj = {};
+        *   2.隐式原型指向构造函数的显示原型    obj.__proto__ = A.prototype;
+        *   3.通过call改变构造函数的this指向    A.call(obj);
+        */
+
+        // 无new实例化
+        function A(day, date){
+            if (this instanceof A){
+                this.day = day || '2019-5-20';
+                this.date = date || 'Monday';
+            }else{
+                return new A(day, date);
+            }
+        }
+
+        // 链式调用+无new实例化+event loop
+        Person('li');
+        // This is li
+
+        Person('li').sleep(10).eat('danner')
+
+        // This is li
+        // ...等待10ms
+        // sleep after 10
+        // eat danner
+
+        Person('li').sleepFirst(5).eat('danner')
+        // ...等待5ms
+        // sleep before 5
+        // This is li
+        // eat danner
+
+        Person('li').eat('food').eat('danner')
+        // This is li
+        // eat food
+        // eat danner
+
+
+    </script>
+</body>
+</html>
