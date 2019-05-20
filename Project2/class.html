@@ -35,9 +35,9 @@
         B.prototype = new A();
 
         var b = new B('2019-5-21', 'Tuesday');
-        for (let key in b){
-            console.log('key...', key, 'val...', b[key]);
-        }
+        // for (let key in b){
+        //     console.log('key...', key, 'val...', b[key]);
+        // }
 
         /**
         *   new的过程
@@ -56,28 +56,85 @@
             }
         }
 
+        function Person(name){
+            if (this instanceof Person){
+                this.queues = [];
+
+                this.queues.push({
+                    delay: 0,
+                    cb: ()=> console.log(`this is ${name}`)
+                })
+
+                // 使用异步延迟queues的执行
+                setTimeout(async ()=>{
+                    for (let i=0, len=this.queues.length; i<len; i++){
+                        let item = this.queues[i], cb=item.cb;
+                        if (item.delay){
+                            cb = this.toPromise(cb, item.delay)
+                            await cb;
+                        }else{
+                            await cb();
+                        }
+                    }
+                })
+            }else{
+                return new Person(name);
+            }
+        }
+        Person.prototype.toPromise = function(cb, delay){
+            return new Promise((resolve, reject)=>{
+                setTimeout(()=>{
+                    cb();
+                    resolve()
+                }, delay)
+            })
+        },
+        Person.prototype.sleep = function(delay){
+            this.queues.push({
+                delay,
+                cb: ()=>console.log(`sleep after ${delay}`)
+            })
+            return this;
+        }
+        Person.prototype.sleepFirst = function(delay){
+            this.queues.unshift({
+                delay,
+                cb: ()=>console.log(`sleep before ${delay}`)
+            })
+            return this;
+        }
+        Person.prototype.eat = function(food){
+            this.queues.push({
+                delay: 0,
+                cb: ()=>console.log(`eat ${food}`)
+            })
+            return this;
+        }
+
         // 链式调用+无new实例化+event loop
-        Person('li');
+        // Person('li');
         // This is li
 
-        Person('li').sleep(10).eat('danner')
+        // Person('li').sleep(5000).eat('danner')
 
         // This is li
         // ...等待10ms
         // sleep after 10
         // eat danner
 
-        Person('li').sleepFirst(5).eat('danner')
+        // Person('li').sleepFirst(5000).eat('danner')
+        Person('li').sleepFirst(5000).eat('danner').sleep(3000).eat('food').sleep(3000).eat(123);
         // ...等待5ms
         // sleep before 5
         // This is li
         // eat danner
 
-        Person('li').eat('food').eat('danner')
+        // Person('li').eat('food').eat('danner')
         // This is li
         // eat food
         // eat danner
-
+         
+        
 
     </script>
 </body>
