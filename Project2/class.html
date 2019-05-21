@@ -58,59 +58,70 @@
 
         function Person(name){
             if (this instanceof Person){
+                // 设置任务队列
                 this.queues = [];
-
+                // 把初始化的任务放入队列
                 this.queues.push({
                     delay: 0,
-                    cb: ()=> console.log(`this is ${name}`)
+                    cb: ()=> console.log(`This is ${name}`)
                 })
-
-                // 使用异步延迟queues的执行
-                setTimeout(async ()=>{
-                    for (let i=0, len=this.queues.length; i<len; i++){
-                        let item = this.queues[i], cb=item.cb;
-                        if (item.delay){
-                            cb = this.toPromise(cb, item.delay)
-                            await cb;
-                        }else{
-                            await cb();
-                        }
-                    }
-                })
+                // 异步调用run方法执行队列
+                setTimeout(()=>{
+                    this.run();
+                });
             }else{
+                // 无new实例化
                 return new Person(name);
             }
         }
+
+        Person.prototype.run = async function(){
+            // 调用for循环阻塞任务队列的执行
+            for (let i=0, len=this.queues.length; i<len; i++){
+                let item = this.queues[i];
+                if (item.delay){
+                    await this.toPromise(item.cb, item.delay)();
+                }else{
+                   await item.cb();
+                }
+            }
+        }
+
         Person.prototype.toPromise = function(cb, delay){
-            return new Promise((resolve, reject)=>{
-                setTimeout(()=>{
-                    cb();
-                    resolve()
-                }, delay)
-            })
-        },
+            // 把一个有延迟的函数转化为promise，延迟时间为状态改为resolve的时间
+            return function(){
+                return new Promise((resolve, reject)=>{
+                    setTimeout(function(){
+                        cb();
+                        resolve();
+                    }, delay);
+                })
+            }
+        }
+
         Person.prototype.sleep = function(delay){
-            this.queues.push({
+            this.queues.push({  
                 delay,
                 cb: ()=>console.log(`sleep after ${delay}`)
             })
             return this;
         }
-        Person.prototype.sleepFirst = function(delay){
-            this.queues.unshift({
-                delay,
-                cb: ()=>console.log(`sleep before ${delay}`)
-            })
-            return this;
-        }
+
         Person.prototype.eat = function(food){
-            this.queues.push({
+            this.queues.push({  
                 delay: 0,
                 cb: ()=>console.log(`eat ${food}`)
             })
             return this;
         }
 
+        Person.prototype.sleepFirst = function(delay){
+            this.queues.unshift({  
+                delay: delay,
+                cb: ()=>console.log(`sleep before ${delay}`)
+            })
+            return this;
+        }
         // 链式调用+无new实例化+event loop
         // Person('li');
         // This is li
@@ -124,6 +135,16 @@
 
         // Person('li').sleepFirst(5000).eat('danner')
         Person('li').sleepFirst(5000).eat('danner').sleep(3000).eat('food').sleep(3000).eat(123);
+        // ...等待5s
+        // sleep before 5000
+        // This is li
+        // eat dinner
+        // sleep after 3000
+        // eat food
+        // sleep after 3000
+        // eat 123
+
+
         // ...等待5ms
         // sleep before 5
         // This is li

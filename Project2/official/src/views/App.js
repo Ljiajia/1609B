@@ -48,5 +48,4 @@ class App extends React.Component{
 }
 
 
-// export default WithLoading(App);
 export default App;
