@@ -31,15 +31,12 @@ export default props=>{
     // 年份切换
     function changeYear(year){
         if (year == '全部'){
-            updateList(list);
+            updateList(info.list);
         }else{
-            updateList(list.filter(item=>item.market_attribute.year==year));
+            updateList(info.list.filter(item=>item.market_attribute.year==year));
         }
     }
 
-    // console.log('info...', info);
-  
-    // console.log('years', years);
     console.log('list...', list);
     return <div>
         <header>
