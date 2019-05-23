@@ -1,0 +1,18 @@
+.wrap{
+    height: 100%;
+    overflow-y: scroll;
+}
+ul{
+    // display: flex;
+}
+li{
+    list-style: none;
+    font-size: .3rem;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    img{
+        height: .5rem;
+        width: auto;
+    }
+}
