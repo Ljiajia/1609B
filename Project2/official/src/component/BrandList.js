@@ -1,15 +1,16 @@
 import React,{useState, useEffect} from 'react';
 import {getBrandList} from '@/api/index';
 import styles from './BrandList.scss';
+import Img from '@/assets/1px.jpg';
+import LazyLoad from '@/util/lazyLoad.js';
 
-import LazyLoad from '@/component/LazyLoad';
+// import LazyLoad from '@/component/LazyLoad';
 
 let BrandList = props=>{
     let [brandList, setBrandList] = useState([]);
 
     useEffect(()=>{
         getBrandList().then(res=>{
-            console.log('res...', res);
             let brandList = [];
             res.forEach(item=>{
                 let letter = item.Spelling[0];
@@ -24,17 +25,18 @@ let BrandList = props=>{
                 }
             })
             setBrandList(brandList);
+            new LazyLoad('#wrap');
         })
     }, [])
 
-    return <div className={styles.wrap}>{
+    return <div id="wrap" className={styles.wrap}>{
         brandList.map((item, index)=>{
             return <div key={index}>
                 <p>{item.letter}</p>
                 <ul>{
                     item.list.map((value, key)=>{
                         return <li key={key}>
-                            <img src={value.CoverPhoto}/>
+                            <img src={Img} data-src={value.CoverPhoto}/>
                             <span>{value.Name}</span>
                         </li>
                     })
@@ -44,4 +46,5 @@ let BrandList = props=>{
     }</div>;
 }
 
-export default LazyLoad(BrandList)
+// export default LazyLoad(BrandList)
+export default BrandList;
