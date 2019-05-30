@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import { inject, observer } from 'mobx-react';
 import WithLoading from '@/component/WithLoading.js';
+import { connect } from 'tls';
 
 // 获取根组件注入的数据，如果有多个，把模块的名字追加在后面
 // export default

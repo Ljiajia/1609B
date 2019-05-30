@@ -125,7 +125,7 @@ export default {
       })
       console.log('this.dag...', this.dag);
     },
-    ...mapActions(["addNode"]),
+    ...mapActions(["addNode", "addEdge"]),
     selStep(i) {
       window.sessionStorage["step"] = i;
       this.tap.forEach((item, n) => {
@@ -209,6 +209,37 @@ export default {
       this.selStep(i);
     }
     sessionStorage["svgScale"] = 1;
+
+    // 获取数据，画图
+    fetch('/api/data').then(res=>res.json()).then(res=>{
+      console.log('res...', res);
+      // 处理节点
+      for (let key in res.node_details){
+         this.addNode({
+          desp: {
+            id: key,
+            name: res.node_details[key].name,
+            display_name: res.node_details[key].display_name,
+            pos_x: res.node_details[key].coordinate.x,
+            pos_y:res.node_details[key].coordinate.y
+          }
+        })
+      }
+      // 处理边
+      for (let key in res.node_relations){
+        res.node_relations[key].forEach(item=>{
+          // 添加边
+          this.addEdge({
+            desp: {
+              dst_input_idx: item.target_index,
+              dst_node_id: key,
+              src_node_id: item.source,
+              src_output_idx: item.source_index
+            }
+          })
+        })
+      }
+    })
   },
   components: {
     ...Step,

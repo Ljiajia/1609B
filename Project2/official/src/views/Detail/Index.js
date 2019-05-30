@@ -3,6 +3,7 @@ import {getSerialInfo} from '@/api/index'
 import styles from './Index.scss'
 import SortSerial from '@/component/SortSerial'
 
+
 export default props=>{
     // 创建一个info状态管理state
     let [info, updateInfo] = useState({});

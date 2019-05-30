@@ -67,8 +67,8 @@ const dagStore = {
     ADD_EDGE_DATA: (state, desp) => {
       let _DataAll = state.DataAll
       _DataAll.edges.push({
+        id: state.DataAll.edges.length + 10,
         ...desp,
-        id: state.DataAll.edges.length + 10
       })
       /**
        * 检测是否成环
@@ -122,8 +122,8 @@ const dagStore = {
     ADD_NODE_DATA: (state, params) => {
       let _nodes = state.DataAll.nodes
       _nodes.push({
-        ...params.desp,
         id: state.DataAll.nodes.length + 100,
+        ...params.desp,
         in_ports: [0, 1, 2, 3, 4],
         out_ports: [0, 1, 2, 3, 4]
       })
